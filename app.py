@@ -14,20 +14,17 @@ app = Flask(__name__)
 # CONFIGURACIÓN DE SESIÓN
 # =========================================================
 
-app.secret_key = "rentec_clave_segura"
+import os
 
-# La sesión permanecerá activa durante 7 días
+app.secret_key = os.getenv("SECRET_KEY", "rentec_clave_segura")
+
 app.permanent_session_lifetime = timedelta(days=7)
 
-
-# =========================================================
-# CONFIGURACIÓN MYSQL
-# =========================================================
-
-app.config["MYSQL_HOST"] = "localhost"
-app.config["MYSQL_USER"] = "root"
-app.config["MYSQL_PASSWORD"] = ""
-app.config["MYSQL_DB"] = "rentec"
+app.config["MYSQL_HOST"] = os.getenv("MYSQL_HOST", "localhost")
+app.config["MYSQL_USER"] = os.getenv("MYSQL_USER", "root")
+app.config["MYSQL_PASSWORD"] = os.getenv("MYSQL_PASSWORD", "")
+app.config["MYSQL_DB"] = os.getenv("MYSQL_DB", "rentec")
+app.config["MYSQL_PORT"] = int(os.getenv("MYSQL_PORT", "3308"))
 
 mysql = MySQL(app)
 
