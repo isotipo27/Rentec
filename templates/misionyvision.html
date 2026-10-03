@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Misión y Visión - Rentec</title>
+
+    <link rel="icon"
+          href="{{ url_for('static', filename='imagenes/LOGO.jpeg') }}">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='diseños.css') }}">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+          crossorigin="anonymous">
+</head>
+
+<body>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+            crossorigin="anonymous"></script>
+
+    <header class="header">
+
+        <img src="{{ url_for('static', filename='imagenes/LOGO.jpeg') }}"
+             alt="Logo de Rentec"
+             class="logo">
+
+         <nav class="nav">
+
+            <ul>
+
+                <li>
+                    <a href="{{ url_for('inicio') }}">
+                        Página principal
+                    </a>
+                </li>
+
+
+                <li>
+                    <a href="{{ url_for('nosotros') }}">
+                        Quiénes somos
+                    </a>
+                </li>
+
+
+                <li>
+                    <a href="{{ url_for('mision') }}">
+                        Misión y visión
+                    </a>
+                </li>
+
+
+                <!-- =========================
+                     USUARIO NO LOGUEADO
+                ========================== -->
+
+                {% if not session.get('id_usuario') %}
+
+                <li>
+                    <a href="{{ url_for('login_registro') }}">
+                        Registro/Login
+                    </a>
+                </li>
+
+
+                <!-- =========================
+                     USUARIO LOGUEADO
+                ========================== -->
+
+                {% else %}
+
+                <li>
+
+                    <a href="{{ url_for('inicio_usuario') }}">
+
+                        👤 Hola, {{ session.get('nombre') }}
+
+                    </a>
+
+                </li>
+
+
+                <li>
+
+                    <a href="{{ url_for('logout') }}">
+
+                        Cerrar sesión
+
+                    </a>
+
+                </li>
+
+                {% endif %}
+
+            </ul>
+
+        </nav>
+
+    </header>
+
+
+
+    <br>
+
+    <section class="mision_vision">
+        <h1>MISIÓN Y VISIÓN DE RENTEC</h1>
+    </section>
+
+    <section class="imagen_misionyvision">
+
+        <img src="{{ url_for('static', filename='imagenes/vision y mision.jfif.jpeg') }}"
+             alt="Misión y visión de Rentec"
+             class="misionyvision">
+
+    </section>
+
+    <section class="mision_vision2">
+
+        <p>
+            La empresa RenTec tiene como misión brindar soluciones tecnológicas
+            accesibles y eficientes mediante el alquiler y la gestión de equipos
+            de alta calidad, ofreciendo a sus clientes un servicio confiable,
+            innovador y organizado que facilite sus necesidades tecnológicas,
+            mientras promueve el uso responsable y sostenible de los recursos
+            tecnológicos.
+
+            Asimismo, su visión es convertirse en una empresa reconocida por su
+            excelencia en el alquiler y administración de equipos tecnológicos,
+            destacándose por la innovación, la confianza y la calidad del
+            servicio, hasta posicionarse como una de las principales opciones
+            del mercado y contribuir al desarrollo tecnológico sostenible de
+            la comunidad.
+        </p>
+
+    </section>
+
+    <br>
+    <br>
+    <br>
+
+    <footer class="footer">
+
+        <p>&copy; Rentec 2026 GBM
+            Conformada por Gabriel, Sharon, Julian y Joseph
+            Hecho en el colegio Gabriel Betancourt Mejía
+        </p>
+
+    </footer>
+
+</body>
+
+</html>

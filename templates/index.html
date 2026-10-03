@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Rentec - Alquiler de dispositivos tecnológicos</title>
+
+    <link rel="icon"
+          href="{{ url_for('static', filename='imagenes/LOGO.jpeg') }}">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='diseños.css') }}">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+          crossorigin="anonymous">
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         BOOTSTRAP
+    ========================== -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+            crossorigin="anonymous">
+    </script>
+
+
+
+    <!-- =========================
+         ENCABEZADO
+    ========================== -->
+
+    <header class="header">
+
+
+        <!-- LOGO -->
+
+        <img src="{{ url_for('static', filename='imagenes/LOGO.jpeg') }}"
+             alt="Logo de Rentec"
+             class="logo">
+
+
+
+        <!-- MENÚ -->
+
+        <nav class="nav">
+
+            <ul>
+
+                <li>
+                    <a href="{{ url_for('inicio') }}">
+                        Página principal
+                    </a>
+                </li>
+
+
+                <li>
+                    <a href="{{ url_for('nosotros') }}">
+                        Quiénes somos
+                    </a>
+                </li>
+
+
+                <li>
+                    <a href="{{ url_for('mision') }}">
+                        Misión y visión
+                    </a>
+                </li>
+
+
+                <!-- =========================
+                     USUARIO NO LOGUEADO
+                ========================== -->
+
+                {% if not session.get('id_usuario') %}
+
+                <li>
+                    <a href="{{ url_for('login_registro') }}">
+                        Registro/Login
+                    </a>
+                </li>
+
+
+                <!-- =========================
+                     USUARIO LOGUEADO
+                ========================== -->
+
+                {% else %}
+
+                <li>
+
+                    <a href="{{ url_for('inicio_usuario') }}">
+
+                        👤 Hola, {{ session.get('nombre') }}
+
+                    </a>
+
+                </li>
+
+
+                <li>
+
+                    <a href="{{ url_for('logout') }}">
+
+                        Cerrar sesión
+
+                    </a>
+
+                </li>
+
+                {% endif %}
+
+            </ul>
+
+        </nav>
+
+    </header>
+
+
+
+    <br>
+
+
+
+    <!-- =========================
+         TÍTULO
+    ========================== -->
+
+    <section class="imagenes1_titulo">
+
+        <h1>
+
+            Bienvenido a la aplicacion de alquiler
+            de dispositivos Rentec
+
+        </h1>
+
+    </section>
+
+
+
+    <!-- =========================
+         CATEGORÍAS
+    ========================== -->
+
+    <section class="categorias">
+
+        <nav class="categorias1">
+
+            <ul>
+
+                <li>
+
+                    <a href="{{ url_for('computadores') }}">
+
+                        Computadores
+
+                    </a>
+
+                </li>
+
+
+                <li>
+
+                    <a href="{{ url_for('tecladosmaus') }}">
+
+                        Teclados y 
+                        Mouse
+
+                    </a>
+
+                </li>
+
+
+                <li>
+
+                    <a href="{{ url_for('televisores') }}">
+
+                        Televisores
+
+                    </a>
+
+                </li>
+
+
+                <li>
+
+                    <a href="{{ url_for('torresdepc') }}">
+
+                        Torres de Computadora
+
+                    </a>
+
+                </li>
+
+            </ul>
+
+        </nav>
+
+    </section>
+
+
+
+    <!-- =========================
+         BARRA DE BÚSQUEDA
+    ========================== -->
+
+    <nav class="navbar bg-body-tertiary"
+         data-bs-theme="dark">
+
+        <div class="container-fluid">
+
+
+            <!-- LOGO Y TÍTULO -->
+
+            <a class="navbar-brand"
+               href="{{ url_for('inicio') }}">
+
+                <img src="{{ url_for('static', filename='imagenes/LOGO.jpeg') }}"
+                     alt="Logo de Rentec"
+                     width="50"
+                     height="40"
+                     class="d-inline-block align-text-top">
+
+                Barra de búsqueda
+
+            </a>
+
+
+
+            <!-- BUSCADOR -->
+
+            <form class="d-flex"
+                  role="search"
+                  method="GET"
+                  action="{{ url_for('computadores') }}">
+
+                <input
+                    class="form-control me-2"
+                    type="search"
+                    name="buscar"
+                    placeholder="Buscar"
+                    aria-label="Buscar">
+
+
+                <button
+                    class="btn btn-outline-success"
+                    type="submit">
+
+                    Buscar
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- =========================
+         COMPUTADOR 1 - 3
+    ========================== -->
+
+    <section class="imagenes1">
+
+
+        <div id="img1">
+
+            <a href="{{ url_for('computadores') }}">
+
+                <img
+                    src="{{ url_for('static', filename='imagenes/pc1.jfif.jpeg') }}"
+                    alt="Computador 1"
+                    class="imagenes1">
+
+                <h5 class="titleimg">
+                    Computador 1
+                </h5>
+
+            </a>
+
+        </div>
+
+
+
+        <div id="img2">
+
+            <a href="{{ url_for('computadores') }}">
+
+                <img
+                    src="{{ url_for('static', filename='imagenes/pc2.jfif.jpeg') }}"
+                    alt="Computador 2"
+                    class="imagenes1">
+
+                <h5 class="titleimg">
+                    Computador 2
+                </h5>
+
+            </a>
+
+        </div>
+
+
+
+        <div id="img3">
+
+            <a href="{{ url_for('computadores') }}">
+
+                <img
+                    src="{{ url_for('static', filename='imagenes/pc3.jfif.jpeg') }}"
+                    alt="Computador 3"
+                    class="imagenes1">
+
+                <h5 class="titleimg">
+                    Computador 3
+                </h5>
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         COMPUTADOR 4 - 6
+    ========================== -->
+
+    <section class="imagenes1">
+
+
+        <div id="img1">
+
+            <a href="{{ url_for('computadores') }}">
+
+                <img
+                    src="{{ url_for('static', filename='imagenes/pc7.jfif.jpeg') }}"
+                    alt="Computador 4"
+                    class="imagenes1">
+
+                <h5 class="titleimg">
+                    Computador 4
+                </h5>
+
+            </a>
+
+        </div>
+
+
+
+        <div id="img2">
+
+            <a href="{{ url_for('computadores') }}">
+
+                <img
+                    src="{{ url_for('static', filename='imagenes/pc8.jfif.jpeg') }}"
+                    alt="Computador 5"
+                    class="imagenes1">
+
+                <h5 class="titleimg">
+                    Computador 5
+                </h5>
+
+            </a>
+
+        </div>
+
+
+
+        <div id="img3">
+
+            <a href="{{ url_for('computadores') }}">
+
+                <img
+                    src="{{ url_for('static', filename='imagenes/pc9.jfif.jpeg') }}"
+                    alt="Computador 6"
+                    class="imagenes1">
+
+                <h5 class="titleimg">
+                    Computador 6
+                </h5>
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         COMPUTADOR 7 - 9
+    ========================== -->
+
+    <section class="imagenes1">
+
+
+        <div id="img1">
+
+            <a href="{{ url_for('computadores') }}">
+
+                <img
+                    src="{{ url_for('static', filename='imagenes/pc4.jfif.jpeg') }}"
+                    alt="Computador 7"
+                    class="imagenes1">
+
+                <h5 class="titleimg">
+                    Computador 7
+                </h5>
+
+            </a>
+
+        </div>
+
+
+
+        <div id="img2">
+
+            <a href="{{ url_for('computadores') }}">
+
+                <img
+                    src="{{ url_for('static', filename='imagenes/pc5.jfif.jpeg') }}"
+                    alt="Computador 8"
+                    class="imagenes1">
+
+                <h5 class="titleimg">
+                    Computador 8
+                </h5>
+
+            </a>
+
+        </div>
+
+
+
+        <div id="img3">
+
+            <a href="{{ url_for('computadores') }}">
+
+                <img
+                    src="{{ url_for('static', filename='imagenes/pc6.jfif.jpeg') }}"
+                    alt="Computador 9"
+                    class="imagenes1">
+
+                <h5 class="titleimg">
+                    Computador 9
+                </h5>
+
+            </a>
+
+        </div>
+
+    </section>
+
+    <footer class="footer">
+
+        <p>
+            &copy; Rentec 2026 GBM
+        </p>
+
+
+        <p>
+            Conformada por Gabriel, Sharon, Julian y Joseph
+        </p>
+
+
+        <p>
+            Hecho en el Colegio Gabriel Betancourt Mejía
+        </p>
+
+    </footer>
+
+</body>
+
+</html>

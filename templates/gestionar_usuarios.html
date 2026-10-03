@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Gestionar Usuarios - Rentec</title>
+
+    <link rel="icon" type="image/jpeg" href="{{ url_for('static', filename='images/LOGO.jpeg') }}">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='diseños.css') }}">
+
+    <style>
+
+        body {
+            background-color: #080d11;
+            color: white;
+            min-height: 100vh;
+        }
+
+        .contenedor-usuarios {
+            width: 95%;
+            max-width: 1400px;
+            margin: 40px auto;
+        }
+
+        .titulo {
+            color: #00eaff;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .subtitulo {
+            color: #ffffff;
+            margin-bottom: 25px;
+        }
+
+        .tabla-contenedor {
+            background-color: #000000;
+            border: 1px solid #00eaff;
+            border-radius: 15px;
+            padding: 20px;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            color: white;
+            border-collapse: collapse;
+        }
+
+        th {
+            color: #00eaff !important;
+            border-bottom: 1px solid #00eaff !important;
+            padding: 15px;
+            text-align: center;
+        }
+
+        td {
+            color: white !important;
+            border-bottom: 1px solid #26343b;
+            padding: 12px;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        tr:hover {
+            background-color: #101a20;
+        }
+
+        .rol-admin {
+            color: #00eaff;
+            font-weight: bold;
+        }
+
+        .rol-cliente {
+            color: white;
+        }
+
+        .btn-rentec {
+            background-color: transparent;
+            color: #00eaff;
+            border: 1px solid #00eaff;
+            border-radius: 25px;
+            padding: 8px 18px;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .btn-rentec:hover {
+            background-color: #00eaff;
+            color: #000000;
+        }
+
+        .btn-eliminar {
+            background-color: transparent;
+            color: #ff4d4d;
+            border: 1px solid #ff4d4d;
+            border-radius: 25px;
+            padding: 8px 18px;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .btn-eliminar:hover {
+            background-color: #ff4d4d;
+            color: white;
+        }
+
+        .formulario-editar {
+            background-color: #000000;
+            border: 1px solid #00eaff;
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 30px;
+        }
+
+        .formulario-editar h3 {
+            color: #00eaff;
+            margin-bottom: 25px;
+        }
+
+        .form-control,
+        .form-select {
+            background-color: #080d11;
+            color: white;
+            border: 1px solid #52636b;
+            border-radius: 10px;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            background-color: #080d11;
+            color: white;
+            border-color: #00eaff;
+            box-shadow: 0 0 5px #00eaff;
+        }
+
+        .form-select option {
+            background-color: #080d11;
+            color: white;
+        }
+
+        label {
+            color: #00eaff;
+            font-weight: bold;
+            margin-bottom: 7px;
+        }
+
+        .acciones {
+            white-space: nowrap;
+        }
+
+        .botones-finales {
+            margin-top: 25px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn-volver {
+            background-color: transparent;
+            color: white;
+            border: 1px solid white;
+            border-radius: 25px;
+            padding: 9px 20px;
+            text-decoration: none;
+        }
+
+        .btn-volver:hover {
+            background-color: white;
+            color: black;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- ================================================= -->
+    <!-- CONTENIDO -->
+    <!-- ================================================= -->
+
+    <div class="contenedor-usuarios">
+
+        <h1 class="titulo">Gestionar usuarios</h1>
+
+        <!-- ================================================= -->
+        <!-- TABLA DE USUARIOS -->
+        <!-- ================================================= -->
+
+        <div class="tabla-contenedor">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre completo</th>
+                        <th>Correo</th>
+                        <th>Teléfono</th>
+                        <th>Usuario</th>
+                        <th>Rol</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for usuario in usuarios %}
+
+                    <tr>
+
+                        <!-- ID -->
+                        <td>
+                            {{ usuario[0] }}
+                        </td>
+
+                        <!-- NOMBRE -->
+                        <td>
+                            {{ usuario[1] }}
+                        </td>
+
+                        <!-- CORREO -->
+                        <td>
+                            {{ usuario[2] }}
+                        </td>
+
+                        <!-- TELEFONO -->
+                        <td>
+                            {{ usuario[3] }}
+                        </td>
+
+                        <!-- USUARIO -->
+                        <td>
+                            {{ usuario[4] }}
+                        </td>
+
+                        <!-- ROL -->
+                        <td>
+
+                            {% if usuario[5] == 1 %}
+
+                                <span class="rol-admin">
+                                    Administrador
+                                </span>
+
+                            {% else %}
+
+                                <span class="rol-cliente">
+                                    {{ usuario[6] }}
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+                        <!-- ACCIONES -->
+                        <td class="acciones">
+
+                            <!-- MODIFICAR -->
+                            <a
+                                href="{{ url_for('gestionar_usuarios', editar=usuario[0]) }}"
+                                class="btn-rentec"
+                            >
+                                Modificar
+                            </a>
+
+
+                            <!-- ELIMINAR -->
+                            {% if usuario[0] != session["id_usuario"] %}
+
+                                <a
+                                    href="{{ url_for('eliminar_usuario', id_usuario=usuario[0]) }}"
+                                    class="btn-eliminar"
+                                    onclick="return confirm('¿Estás seguro de que deseas eliminar este usuario?');"
+                                >
+                                    Eliminar
+                                </a>
+
+                            {% endif %}
+
+                        </td>
+
+                    </tr>
+
+                    {% else %}
+
+                    <tr>
+
+                        <td colspan="7">
+                            No hay usuarios registrados.
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <!-- ================================================= -->
+        <!-- FORMULARIO DE MODIFICACIÓN -->
+        <!-- ================================================= -->
+
+        {% if usuario_editar %}
+
+        <div class="formulario-editar">
+
+            <h3>
+                Modificar usuario
+            </h3>
+
+
+            <form
+                method="POST"
+                action="{{ url_for('gestionar_usuarios') }}"
+            >
+
+                <!-- ID OCULTO -->
+
+                <input
+                    type="hidden"
+                    name="id_usuario"
+                    value="{{ usuario_editar[0] }}"
+                >
+
+
+                <div class="row">
+
+                    <!-- NOMBRE -->
+
+                    <div class="col-md-6 mb-3">
+
+                        <label>
+                            Nombre completo
+                        </label>
+
+                        <input
+                            type="text"
+                            name="nombre"
+                            class="form-control"
+                            value="{{ usuario_editar[1] }}"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- CORREO -->
+
+                    <div class="col-md-6 mb-3">
+
+                        <label>
+                            Correo electrónico
+                        </label>
+
+                        <input
+                            type="email"
+                            name="correo"
+                            class="form-control"
+                            value="{{ usuario_editar[2] }}"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- TELEFONO -->
+
+                    <div class="col-md-6 mb-3">
+
+                        <label>
+                            Teléfono
+                        </label>
+
+                        <input
+                            type="text"
+                            name="telefono"
+                            class="form-control"
+                            value="{{ usuario_editar[3] }}"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- USUARIO -->
+
+                    <div class="col-md-6 mb-3">
+
+                        <label>
+                            Nombre de usuario
+                        </label>
+
+                        <input
+                            type="text"
+                            name="usuario"
+                            class="form-control"
+                            value="{{ usuario_editar[4] }}"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- ROL -->
+
+                    <div class="col-md-6 mb-3">
+
+                        <label>
+                            Rol
+                        </label>
+
+                        <select
+                            name="id_rol"
+                            class="form-select"
+                            required
+                        >
+
+                            {% for rol in roles %}
+
+                                <option
+                                    value="{{ rol[0] }}"
+                                    {% if rol[0] == usuario_editar[5] %}
+                                        selected
+                                    {% endif %}
+                                >
+
+                                    {{ rol[1] }}
+
+                                </option>
+
+                            {% endfor %}
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <!-- BOTONES -->
+
+                <div class="botones-finales">
+
+                    <button
+                        type="submit"
+                        class="btn-rentec"
+                    >
+                        Guardar cambios
+                    </button>
+
+
+                    <a
+                        href="{{ url_for('gestionar_usuarios') }}"
+                        class="btn-volver"
+                    >
+                        Cancelar
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
+
+        {% endif %}
+
+
+        <!-- ================================================= -->
+        <!-- BOTONES INFERIORES -->
+        <!-- ================================================= -->
+
+        <div class="botones-finales">
+
+            <a
+                href="{{ url_for('crear_usuario') }}"
+                class="btn-rentec"
+            >
+                + Crear usuario
+            </a>
+
+            <a
+                href="{{ url_for('administrador') }}"
+                class="btn-volver"
+            >
+                Volver al panel
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

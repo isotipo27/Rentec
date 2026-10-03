@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Registro - Rentec</title>
+
+    <link rel="icon"
+          href="{{ url_for('static', filename='imagenes/LOGO.jpeg') }}">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='diseños.css') }}">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+          crossorigin="anonymous">
+</head>
+
+<body>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+            crossorigin="anonymous"></script>
+
+    <header class="header">
+
+        <img src="{{ url_for('static', filename='imagenes/LOGO.jpeg') }}"
+             alt="Logo de Rentec"
+             class="logo">
+
+        <nav class="nav">
+
+            <ul>
+
+                <li>
+                    <a href="{{ url_for('inicio') }}">
+                        Página principal
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ url_for('nosotros') }}">
+                        Quiénes somos
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ url_for('mision') }}">
+                        Misión y visión
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ url_for('login_registro') }}">
+                        Registro/Login
+                    </a>
+                </li>
+
+            </ul>
+
+        </nav>
+
+    </header>
+
+
+    <br>
+
+    <section class="Registro">
+
+        <h1>REGISTRO DE USUARIOS</h1>
+
+    </section>
+
+    <section class="Registro2">
+
+        <form class="registro-form"
+              method="POST"
+              action="{{ url_for('registro') }}">
+
+            <label for="nombre">
+                Nombre completo
+            </label>
+
+            <input
+                type="text"
+                id="nombre"
+                name="nombre"
+                placeholder="Ej: Juan Pérez"
+                required
+            >
+
+            <label for="correo">
+                Correo electrónico
+            </label>
+
+            <input
+                type="email"
+                id="correo"
+                name="correo"
+                placeholder="Ej: correo@gmail.com"
+                required
+            >
+
+            <label for="telefono">
+                Teléfono
+            </label>
+
+            <input
+                type="tel"
+                id="telefono"
+                name="telefono"
+                placeholder="Ej: 3001234567"
+                required
+            >
+
+            <label for="usuario">
+                Nombre de usuario
+            </label>
+
+            <input
+                type="text"
+                id="usuario"
+                name="usuario"
+                placeholder="Ej: juan123"
+                required
+            >
+
+            <label for="password">
+                Contraseña
+            </label>
+
+            <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Crea una contraseña"
+                required
+            >
+
+            <div class="terminos">
+
+                <input
+                    type="checkbox"
+                    id="acepto"
+                    name="acepto"
+                    required
+                >
+
+                <label for="acepto">
+                    Acepto los
+                    <a href="#" target="_blank">
+                        términos y condiciones
+                    </a>
+                    de Rentec.
+                </label>
+
+            </div>
+
+            <button type="submit">
+                Registrarse
+            </button>
+
+        </form>
+
+    </section>
+
+
+    <br>
+
+    <footer class="footer">
+
+        <p>&copy; Rentec 2026 GBM
+            Conformada por Gabriel, Sharon, Julian y Joseph
+            Hecho en el Colegio Gabriel Betancourt Mejía
+        </p>
+
+    </footer>
+
+</body>
+
+</html>

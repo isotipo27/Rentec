@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Reporte - Rentec</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='diseños.css') }}">
+
+    <style>
+
+        /* =========================================
+           REPORTE RENTEC
+           ========================================= */
+
+        .reporte-pagina {
+            min-height: 100vh;
+            background: #080d11;
+            padding: 40px 20px;
+        }
+
+
+        .reporte-contenedor {
+            width: 95%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+
+        /* =========================================
+           ENCABEZADO
+           ========================================= */
+
+        .reporte-encabezado {
+            background: #000000;
+
+            padding: 30px;
+
+            border: 1px solid #00eaff;
+            border-radius: 15px 15px 0 0;
+
+            box-shadow: 0 5px 20px rgba(0, 225, 255, 0.2);
+        }
+
+
+        .reporte-encabezado h1 {
+            margin: 0;
+
+            padding: 0;
+
+            background: transparent;
+
+            color: #00eaff;
+
+            font-size: 36px;
+
+            font-weight: 600;
+
+            text-align: left;
+        }
+
+
+        .reporte-encabezado p {
+            margin: 10px 0 0;
+
+            color: #e6faff;
+
+            font-size: 16px;
+        }
+
+
+        /* =========================================
+           FILTROS
+           ========================================= */
+
+        .reporte-filtros {
+            background: #0b0f14;
+
+            padding: 25px;
+
+            display: flex;
+
+            align-items: end;
+
+            gap: 15px;
+
+            flex-wrap: wrap;
+
+            border-left: 1px solid #00eaff;
+            border-right: 1px solid #00eaff;
+
+            box-shadow: 0 5px 15px rgba(0, 225, 255, 0.1);
+        }
+
+
+        .reporte-campo {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 7px;
+        }
+
+
+        .reporte-campo label {
+            color: #00eaff;
+
+            font-weight: 600;
+
+            font-size: 15px;
+        }
+
+
+        .reporte-campo select {
+            min-width: 220px;
+
+            padding: 11px 14px;
+
+            background: #080d11;
+
+            color: white;
+
+            border: 1px solid #00eaff;
+
+            border-radius: 8px;
+
+            outline: none;
+
+            cursor: pointer;
+        }
+
+
+        .reporte-campo select:focus {
+            box-shadow: 0 0 8px rgba(0, 225, 255, 0.4);
+        }
+
+
+        .reporte-campo select option {
+            background: #080d11;
+
+            color: white;
+        }
+
+
+        /* =========================================
+           BOTONES
+           ========================================= */
+
+        .reporte-boton {
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 11px 20px;
+
+            border-radius: 8px;
+
+            border: 1px solid #00eaff;
+
+            text-decoration: none;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+
+            font-family: 'Poppins', sans-serif;
+        }
+
+
+        .reporte-buscar {
+            background: #00eaff;
+
+            color: #000000;
+        }
+
+
+        .reporte-buscar:hover {
+            background: white;
+
+            border-color: white;
+
+            color: #000000;
+
+            transform: translateY(-2px);
+        }
+
+
+        .reporte-limpiar {
+            background: transparent;
+
+            color: #00eaff;
+        }
+
+
+        .reporte-limpiar:hover {
+            background: #00eaff;
+
+            color: #000000;
+
+            transform: translateY(-2px);
+        }
+
+
+        .reporte-excel {
+            margin-left: auto;
+
+            background: transparent;
+
+            color: #00eaff;
+        }
+
+
+        .reporte-excel:hover {
+            background: #00eaff;
+
+            color: #000000;
+
+            transform: translateY(-2px);
+        }
+
+
+        /* =========================================
+           TABLA
+           ========================================= */
+
+        .reporte-tabla-contenedor {
+            margin-top: 20px;
+
+            background: #0b0f14;
+
+            border: 1px solid #00eaff;
+
+            border-radius: 12px;
+
+            overflow-x: auto;
+
+            box-shadow: 0 5px 20px rgba(0, 225, 255, 0.15);
+        }
+
+
+        .reporte-tabla {
+            width: 100%;
+
+            min-width: 900px;
+
+            border-collapse: collapse;
+        }
+
+
+        .reporte-tabla th {
+            background: #000000;
+
+            color: #00eaff;
+
+            padding: 15px 12px;
+
+            text-align: left;
+
+            font-size: 15px;
+
+            border-bottom: 1px solid #00eaff;
+        }
+
+
+        .reporte-tabla td {
+            padding: 13px 12px;
+
+            color: #e6faff;
+
+            border-bottom: 1px solid #26323a;
+
+            font-size: 14px;
+        }
+
+
+        .reporte-tabla tbody tr {
+            transition: 0.2s;
+        }
+
+
+        .reporte-tabla tbody tr:hover {
+            background: rgba(0, 225, 255, 0.08);
+        }
+
+
+        /* =========================================
+           ROLES
+           ========================================= */
+
+        .reporte-rol {
+            display: inline-block;
+
+            padding: 6px 12px;
+
+            border-radius: 20px;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            border: 1px solid;
+        }
+
+
+        .reporte-administrador {
+            color: #00eaff;
+
+            border-color: #00eaff;
+
+            background: rgba(0, 225, 255, 0.1);
+        }
+
+
+        .reporte-cliente {
+            color: #5eead4;
+
+            border-color: #5eead4;
+
+            background: rgba(94, 234, 212, 0.08);
+        }
+
+
+        /* =========================================
+           SIN DATOS
+           ========================================= */
+
+        .reporte-sin-datos {
+            text-align: center;
+
+            padding: 45px !important;
+
+            color: #8b9aa3 !important;
+
+            font-size: 16px !important;
+        }
+
+
+        /* =========================================
+           VOLVER
+           ========================================= */
+
+        .reporte-volver {
+            margin-top: 25px;
+        }
+
+
+        .reporte-volver a {
+            display: inline-flex;
+
+            align-items: center;
+
+            padding: 11px 20px;
+
+            color: #00eaff;
+
+            background: transparent;
+
+            border: 1px solid #00eaff;
+
+            border-radius: 8px;
+
+            text-decoration: none;
+
+            font-weight: 600;
+
+            transition: 0.3s;
+        }
+
+
+        .reporte-volver a:hover {
+            background: #00eaff;
+
+            color: #000000;
+
+            transform: translateX(-3px);
+        }
+
+
+        /* =========================================
+           RESPONSIVE
+           ========================================= */
+
+        @media (max-width: 768px) {
+
+            .reporte-pagina {
+                padding: 20px 10px;
+            }
+
+
+            .reporte-contenedor {
+                width: 100%;
+            }
+
+
+            .reporte-encabezado {
+                padding: 22px;
+            }
+
+
+            .reporte-encabezado h1 {
+                font-size: 28px;
+            }
+
+
+            .reporte-filtros {
+                align-items: stretch;
+
+                flex-direction: column;
+            }
+
+
+            .reporte-campo select {
+                width: 100%;
+            }
+
+
+            .reporte-boton {
+                width: 100%;
+            }
+
+
+            .reporte-excel {
+                margin-left: 0;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="reporte-pagina">
+
+    <div class="reporte-contenedor">
+
+
+        <!-- =====================================
+             ENCABEZADO
+             ===================================== -->
+
+        <div class="reporte-encabezado">
+
+            <h1>
+                Reporte de Rentec
+            </h1>
+
+            <p>
+                Consulta de usuarios y roles registrados en el sistema
+            </p>
+
+        </div>
+
+
+        <!-- =====================================
+             FILTROS
+             ===================================== -->
+
+        <form
+            method="GET"
+            action="{{ url_for('reporte') }}"
+            class="reporte-filtros"
+        >
+
+            <div class="reporte-campo">
+
+                <label for="rol">
+                    Filtrar por rol
+                </label>
+
+                <select
+                    name="rol"
+                    id="rol"
+                >
+
+                    <option value="">
+                        Todos los usuarios
+                    </option>
+
+                    <option
+                        value="Administrador"
+                        {% if rol_filtro == 'Administrador' %}
+                            selected
+                        {% endif %}
+                    >
+                        Administradores
+                    </option>
+
+                    <option
+                        value="Cliente"
+                        {% if rol_filtro == 'Cliente' %}
+                            selected
+                        {% endif %}
+                    >
+                        Clientes
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="reporte-boton reporte-buscar"
+            >
+                🔎 Buscar
+            </button>
+
+
+            <a
+                href="{{ url_for('reporte') }}"
+                class="reporte-boton reporte-limpiar"
+            >
+                Limpiar
+            </a>
+
+
+            <a
+                href="{{
+                    url_for(
+                        'reporte_excel',
+                        rol=rol_filtro
+                    )
+                    if rol_filtro
+                    else url_for('reporte_excel')
+                }}"
+                class="reporte-boton reporte-excel"
+            >
+                📊 Exportar a Excel
+            </a>
+
+        </form>
+
+
+        <!-- =====================================
+             TABLA
+             ===================================== -->
+
+        <div class="reporte-tabla-contenedor">
+
+            <table class="reporte-tabla">
+
+                <thead>
+
+                    <tr>
+
+                        <th>ID</th>
+
+                        <th>Nombre completo</th>
+
+                        <th>Correo</th>
+
+                        <th>Teléfono</th>
+
+                        <th>Usuario</th>
+
+                        <th>Rol</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% if usuarios %}
+
+                        {% for usuario in usuarios %}
+
+                        <tr>
+
+                            <td>
+                                {{ usuario[0] }}
+                            </td>
+
+                            <td>
+                                {{ usuario[1] }}
+                            </td>
+
+                            <td>
+                                {{ usuario[2] }}
+                            </td>
+
+                            <td>
+                                {{ usuario[3] }}
+                            </td>
+
+                            <td>
+                                {{ usuario[4] }}
+                            </td>
+
+                            <td>
+
+                                {% if usuario[5] == 'Administrador' %}
+
+                                    <span class="reporte-rol reporte-administrador">
+                                        {{ usuario[5] }}
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="reporte-rol reporte-cliente">
+                                        {{ usuario[5] }}
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    {% else %}
+
+                        <tr>
+
+                            <td
+                                colspan="6"
+                                class="reporte-sin-datos"
+                            >
+                                No se encontraron usuarios.
+                            </td>
+
+                        </tr>
+
+                    {% endif %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <!-- =====================================
+             VOLVER
+             ===================================== -->
+
+        <div class="reporte-volver">
+
+            <a href="{{ url_for('administrador') }}">
+                ← Volver al panel administrador
+            </a>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
+
